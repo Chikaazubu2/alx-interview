@@ -12,16 +12,15 @@ exactly n H characters in the file.
 """
 
 
-def minOperations(n):
-    """calulates the fewest number of operations needed to
-    result in exactly n H characters in the file."""
-    operations = 0
-    chars = 'h'
-    buffer = ''
-    while len(chars) < n:
-        if n % len(chars) == 0:
-            buffer = chars
-            operations += 1
-        chars += buffer
-        operations += 1
-    return operations
+ ops = 0
+    factor = 2
+
+    while factor * factor <= n:
+        while n % factor == 0:
+            n //= factor
+            ops += factor
+        factor += 1
+
+    if n > 1:
+        ops += n
+    return ops
