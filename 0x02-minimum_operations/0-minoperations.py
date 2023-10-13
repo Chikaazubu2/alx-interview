@@ -16,7 +16,7 @@ def minOperations(n):
     """calulates the fewest number of operations needed to
     result in exactly n H characters in the file."""
     operations = 0
-    chars = 'H'
+    chars = 'h'
     buffer = ''
     while len(chars) < n:
         if n % len(chars) == 0:
@@ -25,4 +25,3 @@ def minOperations(n):
         chars += buffer
         operations += 1
     return operations
-
