@@ -1,15 +1,33 @@
 #!/usr/bin/python3
-""" Change comes from within
+"""
+makeChange module
 """
 
 
 def makeChange(coins, total):
-    """ Return the fewest number of coins needed to meet total
     """
-    mx = total + 1
-    dp = [0] + [mx for _ in range(total)]
-    for i in range(1, len(dp)):
-        for c in coins:
-            if i - c >= 0:
-                dp[i] = min(dp[i], dp[i - c] + 1)
-    return dp[-1] if dp[-1] != total + 1 else - 1
+    Prototype: def makeChange(coins, total)
+    Return: fewest number of coins needed to
+    meet total
+        If total is 0 or less, return 0
+        If total cannot be met by any number of
+        coins you have, return -1
+    coins is a list of the values of the coins
+    in your possession
+    The value of a coin will always be an integer
+    greater than 0
+    You can assume you have an infinite number of
+    each denomination of coin in the list
+    Your solution’s runtime will be evaluated in
+    this task
+    """
+    if total <= 0:
+        return 0
+
+    min_coins = [float('inf')] * (total + 1)
+    min_coins[0] = 0
+
+    for coin in coins:
+        for i in range(coin, total + 1):
+            min_coins[i] = min(min_coins[i], min_coins[i - coin] + 1)
+    return min_coins[total] if min_coins[total] != float('inf') else -1
