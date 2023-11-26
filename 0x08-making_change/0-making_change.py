@@ -1,34 +1,41 @@
 #!/usr/bin/python3
-"""
-makeChange module
-"""
+'''
+module:
+Making Change Algorithm
+'''
 
 
 def makeChange(coins, total):
-    """
-    Prototype: def makeChange(coins, total)
-    Return: fewest number of coins needed to
-    meet total
-        If total is 0 or less, return 0
-        If total cannot be met by any number of
-        coins you have, return -1
-    coins is a list of the values of the coins
-    in your possession
-    The value of a coin will always be an integer
-    greater than 0
-    You can assume you have an infinite number of
-    each denomination of coin in the list
-    Your solution’s runtime will be evaluated in
-    this task
-    """
+    '''
+    determine the fewest number of coins needed to meet a given amount total
+    from a pile of coins of different values...
+    '''
+
     if total <= 0:
         return 0
 
-    min_coins = [float('inf')] * (total + 1)
-    min_coins[0] = 0
+    else:
+        dp = sorted(coins)
+        dp.reverse()
+        dp_count = 0
+        for i in dp:
+            while (total >= i):
+                dp_count += 1
+                total -= i
+        if total == 0:
+            return dp_count
+        return -1
 
-    for coin in coins:
-        for i in range(coin, total + 1):
-            min_coins[i] = min(min_coins[i], min_coins[i - coin] + 1)
-    return min_coins[total] if min_coins[total] != float('inf') else -1
+    # if total <= 0:
+    #     return 0
 
+    # # list to store the minimum number of coins needed for each amount
+    # dp = [float('inf')] * (total + 1)
+    # # minimum number of coins needed to make change for 0 is 0
+    # dp[0] = 0
+
+    # for coin in coins:
+    #     for amount in range(coin, total + 1):
+    #         dp[amount] = min(dp[amount], dp[amount - coin] + 1)
+
+    # return dp[total] if dp[total] != float('inf') else -1
